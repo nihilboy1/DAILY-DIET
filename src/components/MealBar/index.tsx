@@ -1,11 +1,11 @@
 import * as S from "./styles";
 
-export function MealBar() {
+export function MealBar({ data }: any) {
   return (
     <S.Container>
       <S.TextBox>
-        <S.TimeStampBox>20:00</S.TimeStampBox>
-        <S.MealName>X-tudo</S.MealName>
+        <S.TimeStampBox>{data.hour}</S.TimeStampBox>
+        <S.MealName>{data.mealName}</S.MealName>
       </S.TextBox>
     </S.Container>
   );
