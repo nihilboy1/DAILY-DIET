@@ -45,7 +45,6 @@ export function Home() {
     setGroupedMeals(sectionListData);
   }, []);
 
-  console.log(meals);
   function MoveToStatistics() {
     navigation.navigate("statistics");
   }
