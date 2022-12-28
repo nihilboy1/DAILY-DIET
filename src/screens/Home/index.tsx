@@ -1,13 +1,12 @@
-import { SectionList, Text } from "react-native";
 import * as S from "./styles";
 import { ProfileBox } from "../../components/ProfileBox";
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { AddNewMeal } from "../../components/AddNewMeal";
-import { MealBar } from "../../components/MealBar";
 import { MealHistory } from "../../components/MealHistory";
 import { useState, useEffect } from "react";
 import { mealsDATA } from "../../data";
 import groupBy from "lodash.groupby";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export interface mealProps {
   mealName: string;
@@ -24,7 +23,9 @@ export interface sectionListDataProps {
 
 export function Home() {
   const [meals, setMeals] = useState<mealProps[]>(mealsDATA);
-  const [groupedMeals, setGroupedMeals] = useState<sectionListDataProps[]>();
+  const [groupedMeals, setGroupedMeals] = useState<sectionListDataProps[]>([]);
+  const navigation = useNavigation();
+  const route = useRoute();
 
   useEffect(() => {
     const groupedMeals = Object.values(
@@ -41,14 +42,18 @@ export function Home() {
       };
       sectionListData.push(section);
     });
-
     setGroupedMeals(sectionListData);
   }, []);
+
+  console.log(meals);
+  function MoveToStatistics() {
+    navigation.navigate("statistics");
+  }
 
   return (
     <S.Container>
       <ProfileBox />
-      <MealsPercentage />
+      <MealsPercentage moveTo={MoveToStatistics} routeName={route.name} />
       <AddNewMeal />
       <MealHistory groupedMeals={groupedMeals} />
     </S.Container>

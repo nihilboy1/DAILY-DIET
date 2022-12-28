@@ -6,8 +6,8 @@ import {
 import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { Loading } from "./src/components/Loading";
-import { Home } from "./src/screens/Home";
 import theme from "./src/theme";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsAreLoaded] = useFonts({ Nunito_400Regular, Nunito_700Bold });
@@ -18,7 +18,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsAreLoaded ? <Home /> : <Loading />}
+      {fontsAreLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }

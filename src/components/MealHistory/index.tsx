@@ -4,22 +4,22 @@ import { sectionListDataProps } from "../../screens/Home";
 import { MealBar } from "../MealBar";
 
 interface MealHistoryProps {
-  groupedMeals?: sectionListDataProps[];
+  groupedMeals: sectionListDataProps[];
 }
 
 export function MealHistory({ groupedMeals }: MealHistoryProps) {
-  return groupedMeals ? (
+  return (
     <S.Container>
       <SectionList
+        showsVerticalScrollIndicator={false}
         sections={groupedMeals}
-        keyExtractor={(item) => (item as any).mealName}
-        renderItem={({ item }) => <MealBar data={item} />}
-        renderSectionHeader={({ section: { title } }: any) => (
+        stickySectionHeadersEnabled={false}
+        keyExtractor={(item) => item.mealName}
+        renderSectionHeader={({ section: { title } }) => (
           <S.TitleText>{title}</S.TitleText>
         )}
+        renderItem={({ item }) => <MealBar data={item} />}
       />
     </S.Container>
-  ) : (
-    <View></View>
   );
 }

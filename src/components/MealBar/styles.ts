@@ -5,6 +5,9 @@ export const Container = styled.View`
   border: 1px solid ${({ theme }) => theme.colors.gray_400};
   border-radius: 8px;
   margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const TextBox = styled.View`
@@ -24,7 +27,7 @@ export const TimeStampBox = styled.Text`
 
 export const MealName = styled.Text`
   font-family: ${({ theme }) => theme.font_family.regular};
-  font_size: ${({ theme }) => theme.font_size.lg};
+  font-size: ${({ theme }) => theme.font_size.lg};
   color: ${({ theme }) => theme.colors.gray_600};
   padding-left: 10px;
 `;
