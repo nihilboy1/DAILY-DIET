@@ -1,8 +1,7 @@
 import styled from "styled-components/native";
 import theme from "../../theme";
-import { ArrowUpRight } from "phosphor-react-native";
 
-interface ArrowUpRightButtonProps {
+interface ArrowButtonProps {
   routeName: string;
 }
 
@@ -25,7 +24,7 @@ export const SpanText = styled.Text`
   font-size: ${({ theme }) => theme.font_size.md};
 `;
 
-export const ArrowUpRightButton = styled.TouchableOpacity<ArrowUpRightButtonProps>`
+export const ArrowButton = styled.TouchableOpacity<ArrowButtonProps>`
   position: absolute;
   right: ${(props) => (props.routeName === "home" ? "5px" : "100%")};
   top: 5px;

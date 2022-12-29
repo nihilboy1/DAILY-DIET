@@ -1,12 +1,12 @@
 import * as S from "./styles";
 import { ProfileBox } from "../../components/ProfileBox";
 import { MealsPercentage } from "../../components/MealsPercentage";
-import { AddNewMeal } from "../../components/AddNewMeal";
 import { MealHistory } from "../../components/MealHistory";
 import { useState, useEffect } from "react";
 import { mealsDATA } from "../../data";
 import groupBy from "lodash.groupby";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 
 export interface mealProps {
   mealName: string;
@@ -49,11 +49,18 @@ export function Home() {
     navigation.navigate("statistics");
   }
 
+  function MoveToNewMeal() {
+    navigation.navigate("newMeal");
+  }
+
   return (
     <S.Container>
       <ProfileBox />
       <MealsPercentage moveTo={MoveToStatistics} routeName={route.name} />
-      <AddNewMeal />
+      <S.ButtonContainer>
+        <S.LabelText>Refeições</S.LabelText>
+        <DefaultGrayButton text="Nova Refeição" moveTo={MoveToNewMeal} />
+      </S.ButtonContainer>
       <MealHistory groupedMeals={groupedMeals} />
     </S.Container>
   );

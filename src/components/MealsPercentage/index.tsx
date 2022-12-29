@@ -13,13 +13,13 @@ interface MealsPercentageProps {
 export function MealsPercentage({ moveTo, routeName }: MealsPercentageProps) {
   return (
     <S.Container>
-      <S.ArrowUpRightButton onPress={moveTo} routeName={routeName}>
+      <S.ArrowButton onPress={moveTo} routeName={routeName}>
         {routeName === "home" ? (
           <ArrowUpRight color={theme.colors.green_dark} weight="bold" />
         ) : (
           <ArrowLeft color={theme.colors.green_dark} weight="bold" />
         )}
-      </S.ArrowUpRightButton>
+      </S.ArrowButton>
       <S.Percentage>90,86%</S.Percentage>
       <S.SpanText>das refeições dentro da dieta</S.SpanText>
     </S.Container>
