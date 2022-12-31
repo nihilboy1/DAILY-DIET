@@ -7,6 +7,7 @@ export const Container = styled(SafeAreaView)`
 
 export const Header = styled.View`
   padding: 28px;
+  padding-bottom: 35px;
   align-items: center;
 `;
 
@@ -19,10 +20,15 @@ export const InputsBox = styled.View`
   height: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 30px;
+  padding: 32px;
 `;
 
-export const InputContainer = styled.View``;
+export const DateTimeBox = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid;
+`;
 
-export const InputTitle = styled.View``;
-
-export const TextInput = styled.TextInput``;
+export const OpenDateTimePicker = styled.TouchableOpacity`
+  border: 1px solid;
+`;

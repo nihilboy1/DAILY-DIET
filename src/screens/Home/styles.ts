@@ -7,7 +7,6 @@ export const Container = styled(SafeAreaView)`
 
 export const ButtonContainer = styled.View`
   margin-top: 40px;
-  margin-bottom: 20px;
 `;
 
 export const LabelText = styled.Text`
@@ -16,4 +15,3 @@ export const LabelText = styled.Text`
     color: ${({ theme }) => theme.colors.gray_600}
     margin-bottom: 10px;
 `;
-
