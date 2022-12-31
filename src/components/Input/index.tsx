@@ -1,4 +1,3 @@
-import { TouchableOpacity, Text } from "react-native";
 import * as S from "./styles";
 
 interface InputProps {
@@ -6,7 +5,6 @@ interface InputProps {
   h?: number;
   max?: number;
   w?: string;
-
 }
 
 export function Input({ label, h = 50, max = 40, w = "100%" }: InputProps) {

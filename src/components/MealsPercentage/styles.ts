@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import theme from "../../theme";
 
 interface ArrowButtonProps {
   routeName: string;
@@ -26,6 +25,6 @@ export const SpanText = styled.Text`
 
 export const ArrowButton = styled.TouchableOpacity<ArrowButtonProps>`
   position: absolute;
-  right: ${(props) => (props.routeName === "home" ? "5px" : "100%")};
-  top: 5px;
+  right: ${(props) => (props.routeName === "home" ? "0px" : "95%")};
+  padding: 10px;
 `;

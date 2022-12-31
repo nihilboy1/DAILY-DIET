@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { MEAL_COLLECTION } from "../storageConfig";
 import { mealProps } from "../../screens/Home";
+import { MEAL_COLLECTION } from "../storageConfig";
 
 export async function getAllMeals() {
   // Pega todo o conteudo armazeado na chave em questão

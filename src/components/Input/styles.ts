@@ -22,4 +22,6 @@ export const Picker = styled.View`
   border: 1px solid ${({ theme }) => theme.colors.gray_400};
   border-radius: 8px;
   height: 50px;
+  justify-content: center;
+  padding-left: 15px;
 `;

@@ -1,5 +1,6 @@
-import * as S from "./styles";
 import { Image } from "react-native";
+
+import * as S from "./styles";
 
 export function ProfileBox() {
   return (

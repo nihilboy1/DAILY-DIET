@@ -1,4 +1,3 @@
-import Plus from "phosphor-react-native/lib/typescript/icons/Plus";
 import styled from "styled-components/native";
 
 export const Container = styled.TouchableOpacity`
@@ -16,6 +15,5 @@ export const Container = styled.TouchableOpacity`
 export const TextButton = styled.Text`
   color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.font_family.bold};
-  font-size: ${({ theme }) => theme.font_size.lg}
-  margin-left: 10px;
+  font-size: ${({ theme }) => theme.font_size.lg};
 `;

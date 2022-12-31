@@ -16,7 +16,7 @@ export const HeaderText = styled.Text`
   font-size: ${({ theme }) => theme.font_size.lg};
 `;
 
-export const InputsBox = styled.View`
+export const InputsBox = styled.ScrollView`
   height: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 30px;
@@ -26,9 +26,39 @@ export const InputsBox = styled.View`
 export const DateTimeBox = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid;
 `;
 
-export const OpenDateTimePicker = styled.TouchableOpacity`
-  border: 1px solid;
+export const InsideDietBox = styled.View`
+  margin-top: 30px;
+`;
+
+export const TitleButtonsText = styled.Text`
+  font-family: ${({ theme }) => theme.font_family.bold};
+  font-size: ${({ theme }) => theme.font_size.md};
+  margin-bottom: 8px;
+`;
+
+export const InsideDietButtonsBox = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const InsideDietButton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 120px;
+`;
+
+export const ButtonText = styled.Text`
+  font-family: ${({ theme }) => theme.font_family.bold};
+  font-size: ${({ theme }) => theme.font_size.md};
+  margin-left: 5px;
+`;
+
+export const DateTimeText = styled.Text`
+  font-family: ${({ theme }) => theme.font_family.regular};
+  font-size: ${({ theme }) => theme.font_size.md};
 `;

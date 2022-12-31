@@ -1,4 +1,4 @@
-import styled from 'styled-components/native'
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
@@ -6,8 +6,8 @@ export const Container = styled.View`
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.green_light};
-`
+`;
 
 export const LoadIndicator = styled.ActivityIndicator.attrs(({ theme }) => ({
-  color: theme.colors.green_dark
-}))``
+  color: theme.colors.green_dark,
+}))``;

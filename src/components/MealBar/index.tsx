@@ -1,6 +1,7 @@
 import { Circle } from "phosphor-react-native";
-import * as S from "./styles";
+
 import theme from "../../theme";
+import * as S from "./styles";
 
 export function MealBar({ data }: any) {
   return (

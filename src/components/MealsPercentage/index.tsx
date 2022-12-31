@@ -1,10 +1,6 @@
-import { View, Text, TouchableOpacity } from "react-native";
-
 import * as S from "./styles";
 import { ArrowLeft, ArrowUpRight } from "phosphor-react-native";
 import theme from "../../theme";
-import { useNavigation } from "@react-navigation/native";
-
 interface MealsPercentageProps {
   moveTo: () => void;
   routeName: string;

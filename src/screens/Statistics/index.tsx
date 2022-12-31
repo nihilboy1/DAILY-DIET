@@ -1,13 +1,13 @@
-import * as S from "./styles";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { StatisticBox } from "../../components/StatisticBox";
 import theme from "../../theme";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import * as S from "./styles";
 
 export function Statistics() {
   const navigation = useNavigation();
   const route = useRoute();
-  
 
   function MoveToHome() {
     navigation.navigate("home");
