@@ -1,12 +1,16 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
-import groupBy from "lodash.groupby";
-import { useEffect, useState } from "react";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { Text } from "react-native";
 
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { MealHistory } from "../../components/MealHistory";
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { ProfileBox } from "../../components/ProfileBox";
-import { mealsDATA } from "../../data";
+import { getAllMeals } from "../../storage/mealRegister/getAllMeals";
 import * as S from "./styles";
 
 export interface mealProps {
@@ -23,28 +27,19 @@ export interface sectionListDataProps {
 }
 
 export function Home() {
-  const [meals, setMeals] = useState<mealProps[]>(mealsDATA);
+  const [meals, setMeals] = useState<mealProps[]>([]);
   const [groupedMeals, setGroupedMeals] = useState<sectionListDataProps[]>([]);
   const navigation = useNavigation();
   const route = useRoute();
 
-  useEffect(() => {
-    const groupedMeals = Object.values(
-      groupBy(meals, function (i) {
-        return i.date;
-      })
-    );
-
-    const sectionListData = [] as sectionListDataProps[];
-    groupedMeals.map((day) => {
-      let section = {
-        title: day[0].date,
-        data: [...day],
-      };
-      sectionListData.push(section);
-    });
-    setGroupedMeals(sectionListData);
-  }, []);
+  async function fetchMeals() {
+    try {
+      const data = await getAllMeals();
+      setMeals(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function MoveToStatistics() {
     navigation.navigate("statistics");
@@ -54,6 +49,12 @@ export function Home() {
     navigation.navigate("newMeal");
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals();
+    }, [])
+  );
+
   return (
     <S.Container>
       <ProfileBox />
@@ -61,12 +62,14 @@ export function Home() {
       <S.ButtonContainer>
         <S.LabelText>Refeições</S.LabelText>
         <DefaultGrayButton
+          disabled={false}
           text="Nova Refeição"
           moveTo={MoveToNewMeal}
           routeName={route.name}
         />
       </S.ButtonContainer>
-      <MealHistory groupedMeals={groupedMeals} />
+      <MealHistory groupedMeals={groupedMeals}></MealHistory>
+      <Text>{JSON.stringify(meals)}</Text>
     </S.Container>
   );
 }

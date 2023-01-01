@@ -7,16 +7,31 @@ import { TextButton } from "./styles";
 interface DefaultGrayButtonProps {
   text: string;
   moveTo: () => void;
+  handleSetMeal?: () => void;
   routeName?: string;
+  disabled: boolean;
 }
 
 export function DefaultGrayButton({
   text,
   moveTo,
   routeName,
+  disabled,
+  handleSetMeal,
 }: DefaultGrayButtonProps) {
   return (
-    <S.Container onPress={moveTo}>
+    <S.Container
+      disabled={disabled}
+      onPress={
+        handleSetMeal
+          ? () => {
+              handleSetMeal();
+              moveTo();
+            }
+          : () => moveTo()
+      }
+      style={{ opacity: disabled ? 0.5 : 1 }}
+    >
       {routeName == "home" && (
         <Plus
           color={theme.colors.white}

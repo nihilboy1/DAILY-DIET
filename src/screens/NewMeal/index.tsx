@@ -2,27 +2,31 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Circle } from "phosphor-react-native";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { flushSync } from "react-dom";
+import { Text, TouchableOpacity } from "react-native";
 
 import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
+import { mealRegister } from "../../storage/mealRegister/mealRegister";
 import theme from "../../theme";
+import { mealProps } from "../Home";
 import * as S from "./styles";
-import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 
 export function NewMeal() {
   const navigation = useNavigation();
+  const [date, setDate] = useState(new Date());
   const [hideDateModal, setHideDateModal] = useState(false);
   const [hideTimeModal, setHideTimeModal] = useState(false);
-  const [date, setDate] = useState<Date>(new Date());
-
+  const [meal, setMeal] = useState<mealProps>();
+  const [mealName, setMealName] = useState("");
+  const [mealDescription, setMealDescription] = useState("");
   const [hourMinutes, setHourMinutes] = useState("");
   const [dayMonthYear, setDayMonthYear] = useState("");
   const [insideTheDietMeal, setInsideTheDietMeal] = useState<
     boolean | undefined
   >(undefined);
 
-  const handleSetDate = (timeStamp: number | undefined) => {
+  const handleSetDate = (timeStamp?: number) => {
     if (timeStamp) {
       const currentDate = new Date(timeStamp);
       setDate(currentDate);
@@ -37,14 +41,38 @@ export function NewMeal() {
     setHideTimeModal(false);
   };
 
-  function MoveToHome() {
-    navigation.navigate("home");
-  }
+  const moveToHome = async () => {
+    console.log(meal);
+    try {
+      await mealRegister(meal as mealProps);
+      navigation.navigate("home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSetMeal = () => {
+    const mealObject = {
+      mealName,
+      description: mealDescription,
+      date: dayMonthYear,
+      hour: hourMinutes,
+      insideTheDiet: insideTheDietMeal as boolean,
+    };
+    console.log(mealObject);
+
+    flushSync(() => {
+      setMeal(mealObject);
+    });
+
+    moveToHome();
+  };
+
   return (
     <S.Container>
       <S.Header>
         <TouchableOpacity
-          onPress={MoveToHome}
+          onPress={() => moveToHome()}
           style={{
             position: "absolute",
             left: 28,
@@ -57,8 +85,13 @@ export function NewMeal() {
         <S.HeaderText>Nova Refeição</S.HeaderText>
       </S.Header>
       <S.InputsBox>
-        <Input label="Nome" />
-        <Input label="Descrição" h={120} max={170} />
+        <Input label="Nome" setValue={setMealName} />
+        <Input
+          label="Descrição"
+          h={120}
+          max={170}
+          setValue={setMealDescription}
+        />
         <S.DateTimeBox>
           <TouchableOpacity
             style={{ width: "48%" }}
@@ -96,6 +129,7 @@ export function NewMeal() {
           )}
         </S.DateTimeBox>
         <S.InsideDietBox>
+          <Text>{JSON.stringify(meal)}</Text>
           <S.TitleButtonsText>Está dentro da dieta?</S.TitleButtonsText>
           <S.InsideDietButtonsBox>
             <S.InsideDietButton
@@ -146,7 +180,9 @@ export function NewMeal() {
             </S.InsideDietButton>
           </S.InsideDietButtonsBox>
         </S.InsideDietBox>
-        <DefaultGrayButton text="Cadastrar refeição" moveTo={MoveToHome} />
+        <TouchableOpacity onPress={handleSetMeal}>
+          <Text>Save</Text>
+        </TouchableOpacity>
       </S.InputsBox>
     </S.Container>
   );

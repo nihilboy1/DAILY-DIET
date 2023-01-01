@@ -5,9 +5,16 @@ interface InputProps {
   h?: number;
   max?: number;
   w?: string;
+  setValue: (value: string) => void;
 }
 
-export function Input({ label, h = 50, max = 40, w = "100%" }: InputProps) {
+export function Input({
+  label,
+  h = 50,
+  max = 40,
+  w = "100%",
+  setValue,
+}: InputProps) {
   return (
     <S.InputContainer style={{ width: w }}>
       <S.InputTitle>{label}</S.InputTitle>
@@ -17,6 +24,7 @@ export function Input({ label, h = 50, max = 40, w = "100%" }: InputProps) {
         maxLength={max}
         multiline
         style={{ height: h }}
+        onChange={(e) => setValue(e.nativeEvent.text)}
       />
     </S.InputContainer>
   );
