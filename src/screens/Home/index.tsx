@@ -3,7 +3,7 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { MealHistory } from "../../components/MealHistory";
@@ -94,12 +94,16 @@ export function Home() {
 
   useFocusEffect(
     useCallback(() => {
+      console.log("o fetch da home foi chamado");
       fetchAllMeals();
-      const { total, totalInsideOfDiet } = getStatistics(meals);
-      setTotalMeals(total);
-      setTotalInsideOfDietMeals(totalInsideOfDiet);
     }, [])
   );
+
+  useEffect(() => {
+    const { total, totalInsideOfDiet } = getStatistics(meals);
+    setTotalMeals(total);
+    setTotalInsideOfDietMeals(totalInsideOfDiet);
+  }, [meals]);
 
   return (
     <S.Container>

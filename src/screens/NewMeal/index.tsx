@@ -45,15 +45,11 @@ export function NewMeal() {
   const callRegisterMeal = async () => {
     try {
       await mealRegister(meal as mealProps);
-      console.log("mealRegister foi chamado");
+      moveToHome();
     } catch (error) {
       console.log(error);
     }
   };
-
-  function MoveToHome() {
-    handleSetMeal();
-  }
 
   const handleSetMeal = () => {
     const mealObject = {
@@ -68,10 +64,12 @@ export function NewMeal() {
     setMeal(mealObject);
   };
 
+  function moveToHome() {
+    navigation.navigate("home");
+  }
+
   useEffect(() => {
-    console.log("Entrou no useEffect do NewMeal");
     if (meal) {
-      console.log("Entoru if do useEffect do NewMeal");
       callRegisterMeal();
     }
   }, [meal]);
@@ -80,7 +78,7 @@ export function NewMeal() {
     <S.Container>
       <S.Header>
         <TouchableOpacity
-          onPress={MoveToHome}
+          onPress={moveToHome}
           style={{
             position: "absolute",
             left: 28,
@@ -189,7 +187,7 @@ export function NewMeal() {
         </S.InsideDietBox>
         <DefaultGrayButton
           text="Cadastrar refeição"
-          moveTo={MoveToHome}
+          moveTo={handleSetMeal}
           disabled={
             mealName &&
             hourMinutes &&

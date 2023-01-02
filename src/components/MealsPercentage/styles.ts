@@ -6,7 +6,6 @@ interface ArrowButtonProps {
 
 export const Container = styled.View`
   margin-top: 25px;
-  background-color: ${({ theme }) => theme.colors.green_light}
   align-items: center;
   padding: 20px;
   border-radius: 8px;

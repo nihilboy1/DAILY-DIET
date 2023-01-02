@@ -24,6 +24,7 @@ export function Statistics() {
   const [totalOutOfDietMeals, setTotalOutOfDietMeals] = useState<number>(0);
   const [totalInsideOfDietMeals, setTotalInsideOfDietMeals] =
     useState<number>(0);
+  let percentage = (totalInsideOfDietMeals / totalMeals) * 100;
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -80,8 +81,14 @@ export function Statistics() {
       setTotalInsideOfDietMeals(totalInsideOfDiet);
     }
   }, [meals]);
+
   return (
-    <S.Container>
+    <S.Container
+      style={{
+        backgroundColor:
+          percentage >= 50 ? theme.colors.green_light : theme.colors.red_light,
+      }}
+    >
       <MealsPercentage
         moveTo={MoveToHome}
         routeName={route.name}

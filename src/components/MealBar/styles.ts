@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   padding: 16px 15px;
   border: 1px solid ${({ theme }) => theme.colors.gray_400};
   border-radius: 8px;

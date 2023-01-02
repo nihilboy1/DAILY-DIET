@@ -15,15 +15,30 @@ export function MealsPercentage({
   value,
 }: MealsPercentageProps) {
   return (
-    <S.Container>
+    <S.Container
+      style={{
+        backgroundColor:
+          value >= 50 ? theme.colors.green_light : theme.colors.red_light,
+      }}
+    >
       <S.ArrowButton onPress={moveTo} routeName={routeName}>
         {routeName === "home" ? (
-          <ArrowUpRight color={theme.colors.green_dark} weight="bold" />
+          <ArrowUpRight
+            color={
+              value >= 50 ? theme.colors.green_dark : theme.colors.red_dark
+            }
+            weight="bold"
+          />
         ) : (
-          <ArrowLeft color={theme.colors.green_dark} weight="bold" />
+          <ArrowLeft
+            color={
+              value >= 50 ? theme.colors.green_dark : theme.colors.red_dark
+            }
+            weight="bold"
+          />
         )}
       </S.ArrowButton>
-      <S.Percentage>{value}%</S.Percentage>
+      <S.Percentage>{value.toFixed(2).replace(".", ",")}%</S.Percentage>
       <S.SpanText>das refeições dentro da dieta</S.SpanText>
     </S.Container>
   );
