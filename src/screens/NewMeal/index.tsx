@@ -1,10 +1,11 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Circle } from "phosphor-react-native";
-import { useState } from "react";
-import { flushSync } from "react-dom";
-import { Text, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import uuid from "react-native-uuid";
 
+import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
 import { mealRegister } from "../../storage/mealRegister/mealRegister";
@@ -41,38 +42,45 @@ export function NewMeal() {
     setHideTimeModal(false);
   };
 
-  const moveToHome = async () => {
-    console.log(meal);
+  const callRegisterMeal = async () => {
     try {
       await mealRegister(meal as mealProps);
-      navigation.navigate("home");
+      console.log("mealRegister foi chamado");
     } catch (error) {
       console.log(error);
     }
   };
 
+  function MoveToHome() {
+    handleSetMeal();
+  }
+
   const handleSetMeal = () => {
     const mealObject = {
-      mealName,
+      id: String(uuid.v4()),
+      mealName: mealName,
       description: mealDescription,
       date: dayMonthYear,
       hour: hourMinutes,
       insideTheDiet: insideTheDietMeal as boolean,
     };
-    console.log(mealObject);
 
-    flushSync(() => {
-      setMeal(mealObject);
-    });
-
-    moveToHome();
+    setMeal(mealObject);
   };
+
+  useEffect(() => {
+    console.log("Entrou no useEffect do NewMeal");
+    if (meal) {
+      console.log("Entoru if do useEffect do NewMeal");
+      callRegisterMeal();
+    }
+  }, [meal]);
 
   return (
     <S.Container>
       <S.Header>
         <TouchableOpacity
-          onPress={() => moveToHome()}
+          onPress={MoveToHome}
           style={{
             position: "absolute",
             left: 28,
@@ -129,7 +137,6 @@ export function NewMeal() {
           )}
         </S.DateTimeBox>
         <S.InsideDietBox>
-          <Text>{JSON.stringify(meal)}</Text>
           <S.TitleButtonsText>Está dentro da dieta?</S.TitleButtonsText>
           <S.InsideDietButtonsBox>
             <S.InsideDietButton
@@ -180,9 +187,18 @@ export function NewMeal() {
             </S.InsideDietButton>
           </S.InsideDietButtonsBox>
         </S.InsideDietBox>
-        <TouchableOpacity onPress={handleSetMeal}>
-          <Text>Save</Text>
-        </TouchableOpacity>
+        <DefaultGrayButton
+          text="Cadastrar refeição"
+          moveTo={MoveToHome}
+          disabled={
+            mealName &&
+            hourMinutes &&
+            dayMonthYear &&
+            insideTheDietMeal != undefined
+              ? false
+              : true
+          }
+        />
       </S.InputsBox>
     </S.Container>
   );

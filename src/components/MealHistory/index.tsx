@@ -1,7 +1,8 @@
 import { SectionList } from "react-native";
-import * as S from "./styles";
+
 import { sectionListDataProps } from "../../screens/Home";
 import { MealBar } from "../MealBar";
+import * as S from "./styles";
 
 interface MealHistoryProps {
   groupedMeals: sectionListDataProps[];
@@ -14,11 +15,11 @@ export function MealHistory({ groupedMeals }: MealHistoryProps) {
         showsVerticalScrollIndicator={false}
         sections={groupedMeals}
         stickySectionHeadersEnabled={false}
-        keyExtractor={(item) => item.mealName}
+        keyExtractor={(item) => item.id}
         renderSectionHeader={({ section: { title } }) => (
           <S.TitleText>{title}</S.TitleText>
         )}
-        renderItem={({ item }) => <MealBar data={item} />}
+        renderItem={({ item }) => <MealBar key={item.id} data={item} />}
       />
     </S.Container>
   );

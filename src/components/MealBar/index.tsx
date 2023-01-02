@@ -13,7 +13,7 @@ export function MealBar({ data }: any) {
       <Circle
         weight="fill"
         color={
-          data.insideTheDiet ? theme.colors.green_light : theme.colors.red_light
+          data.insideTheDiet ? theme.colors.green_mid : theme.colors.red_mid
         }
       />
     </S.Container>

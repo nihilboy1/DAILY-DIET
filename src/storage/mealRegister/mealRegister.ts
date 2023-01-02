@@ -6,13 +6,10 @@ import { getAllMeals } from "./getAllMeals";
 
 export async function mealRegister(newMeal: mealProps) {
   try {
-    console.log("mealRegister", newMeal);
     const storedMeals = await getAllMeals();
 
     const mealsToStore = JSON.stringify([...storedMeals, newMeal]);
 
     await AsyncStorage.setItem(MEAL_COLLECTION, mealsToStore);
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) {}
 }
