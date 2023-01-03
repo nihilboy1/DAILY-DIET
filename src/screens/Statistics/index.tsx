@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { StatisticBox } from "../../components/StatisticBox";
-import { getAllMeals } from "../../storage/mealRegister/getAllMeals";
+import { getAllMeals } from "../../storage/CRUD/readMeals";
 import theme from "../../theme";
 import * as S from "./styles";
 

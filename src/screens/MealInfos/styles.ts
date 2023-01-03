@@ -21,11 +21,12 @@ export const HeaderText = styled.Text`
   font-size: ${({ theme }) => theme.font_size.xl};
 `;
 
-export const InputsBox = styled.ScrollView`
-  height: 100%;
+export const InputsBox = styled.View`
+  height: 90%
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 30px;
   padding: 32px;
+  justify-content: space-between;
 `;
 
 export const TitleText = styled.Text`
@@ -36,8 +37,8 @@ export const TitleText = styled.Text`
 
 export const NormalText = styled.Text`
   font-family: ${({ theme }) => theme.font_family.regular};
-  font-size: ${({ theme }) => theme.font_size.xl};
-  margin-bottom: 40px;
+  font-size: ${({ theme }) => theme.font_size.lg};
+  margin-bottom: 12px;
 `;
 
 export const InsideTheDietLabelText = styled.Text`
@@ -55,4 +56,10 @@ export const InsideDietLabel = styled.View`
   border-radius: 100px;
   align-items: center;
   padding: 14px 16px;
+`;
+
+export const ButtonsBox = styled.View`
+  height: 140px;
+  justify-content: space-between;
+  margin-bottom: 50px;
 `;

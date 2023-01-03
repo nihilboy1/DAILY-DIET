@@ -8,7 +8,7 @@ import uuid from "react-native-uuid";
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
-import { mealRegister } from "../../storage/mealRegister/mealRegister";
+import { mealRegister } from "../../storage/CRUD/createMeal";
 import theme from "../../theme";
 import { mealProps } from "../Home";
 import * as S from "./styles";

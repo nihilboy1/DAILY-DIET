@@ -38,7 +38,7 @@ export function MealsPercentage({
           />
         )}
       </S.ArrowButton>
-      <S.Percentage>{value.toFixed(2).replace(".", ",")}%</S.Percentage>
+      <S.Percentage>{value.toFixed(0)}%</S.Percentage>
       <S.SpanText>das refeições dentro da dieta</S.SpanText>
     </S.Container>
   );

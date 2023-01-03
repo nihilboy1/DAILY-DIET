@@ -1,4 +1,4 @@
-import { SectionList } from "react-native";
+import { SectionList, Text } from "react-native";
 
 import { sectionListDataProps } from "../../screens/Home";
 import { MealBar } from "../MealBar";
@@ -12,6 +12,7 @@ export function MealHistory({ groupedMeals }: MealHistoryProps) {
   return (
     <S.Container>
       <SectionList
+        ListEmptyComponent={<Text>Que tal cadastrar uma refeição?</Text>}
         showsVerticalScrollIndicator={false}
         sections={groupedMeals}
         stickySectionHeadersEnabled={false}

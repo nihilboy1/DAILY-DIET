@@ -3,13 +3,15 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
+import { Plus } from "phosphor-react-native";
 import { useCallback, useEffect, useState } from "react";
 
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { MealHistory } from "../../components/MealHistory";
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { ProfileBox } from "../../components/ProfileBox";
-import { getAllMeals } from "../../storage/mealRegister/getAllMeals";
+import { readMeals } from "../../storage/CRUD/readMeals";
+import theme from "../../theme";
 import * as S from "./styles";
 
 export interface mealProps {
@@ -38,7 +40,7 @@ export function Home() {
 
   async function fetchAllMeals() {
     try {
-      const data = await getAllMeals();
+      const data = await readMeals();
       setMeals(data);
       setGroupedMeals(groupMealsByDate(data));
       console.log("fetchMeals chamado com sucesso!");
@@ -48,12 +50,33 @@ export function Home() {
   }
 
   const groupMealsByDate = (meals: mealProps[]) => {
-    const uniqueDates = [...new Set(meals.map((meal) => meal.date))];
-    const groupedMeals = uniqueDates.map((date) => ({
+    // Classifique as refeições por data antes de agrupá-las
+    meals.sort((a: mealProps, b: mealProps) => {
+      // Separe a data em dia, mês e ano
+      const [dayA, monthA, yearA] = a.date.split("/");
+      const [dayB, monthB, yearB] = b.date.split("/");
+
+      // Converta os anos em números inteiros e compare
+      const yearANum = parseInt(yearA, 10);
+      const yearBNum = parseInt(yearB, 10);
+      if (yearANum !== yearBNum) return yearBNum - yearANum;
+
+      // Converta os meses em números inteiros e compare
+      const monthANum = parseInt(monthA, 10);
+      const monthBNum = parseInt(monthB, 10);
+      if (monthANum !== monthBNum) return monthBNum - monthANum;
+
+      // Converta os dias em números inteiros e compare
+      const dayANum = parseInt(dayA, 10);
+      const dayBNum = parseInt(dayB, 10);
+      return dayBNum - dayANum;
+    });
+
+    const uniqueDates = [...new Set(meals.map((meal: mealProps) => meal.date))];
+    const groupedMeals: sectionListDataProps[] = uniqueDates.map((date) => ({
       title: date,
-      data: meals.filter((meal) => meal.date === date),
+      data: meals.filter((meal: mealProps) => meal.date === date),
     }));
-    console.log("All meals successfully grouped by date");
     return groupedMeals;
   };
 
@@ -94,7 +117,6 @@ export function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("o fetch da home foi chamado");
       fetchAllMeals();
     }, [])
   );
@@ -118,8 +140,14 @@ export function Home() {
         <DefaultGrayButton
           disabled={false}
           text="Nova Refeição"
-          moveTo={MoveToNewMeal}
-          routeName={route.name}
+          onPress={MoveToNewMeal}
+          icon={
+            <Plus
+              color={theme.colors.white}
+              size={28}
+              style={{ marginRight: 10 }}
+            />
+          }
         />
       </S.ButtonContainer>
       <MealHistory groupedMeals={groupedMeals}></MealHistory>

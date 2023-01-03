@@ -8,7 +8,7 @@ import uuid from "react-native-uuid";
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
-import { mealRegister } from "../../storage/mealRegister/mealRegister";
+import { createMeal } from "../../storage/CRUD/createMeal";
 import theme from "../../theme";
 import { mealProps } from "../Home";
 import * as S from "./styles";
@@ -44,7 +44,7 @@ export function NewMeal() {
 
   const callRegisterMeal = async () => {
     try {
-      await mealRegister(meal as mealProps);
+      await createMeal(meal as mealProps);
       moveToHome();
     } catch (error) {
       console.log(error);
@@ -187,7 +187,7 @@ export function NewMeal() {
         </S.InsideDietBox>
         <DefaultGrayButton
           text="Cadastrar refeição"
-          moveTo={handleSetMeal}
+          onPress={handleSetMeal}
           disabled={
             mealName &&
             hourMinutes &&
