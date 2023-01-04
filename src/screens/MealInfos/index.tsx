@@ -12,12 +12,15 @@ import { deleteMeal } from "../../storage/CRUD/deteleMeal";
 import theme from "../../theme";
 import { mealProps } from "../Home";
 import * as S from "./styles";
+import { useState } from "react";
+import { DeletionModal } from "../../components/DeletionModal";
 
 interface RouteParams {
   data: mealProps;
 }
 
 export function MealInfos() {
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const { data } = route.params as RouteParams;
@@ -26,13 +29,13 @@ export function MealInfos() {
     navigation.navigate("home");
   }
 
-  function deleteAndMoveToHome() {
-    handleDeleteMeal();
-    navigation.navigate("home");
+  function moveToEditMeal() {
+    navigation.navigate("editMeal", { data });
   }
 
-  async function handleDeleteMeal() {
+  async function deleteAndMoveToHome() {
     await deleteMeal(data.id);
+    navigation.navigate("home");
   }
 
   return (
@@ -75,7 +78,7 @@ export function MealInfos() {
         </View>
         <S.ButtonsBox>
           <DefaultGrayButton
-            onPress={moveToHome}
+            onPress={moveToEditMeal}
             disabled={false}
             text="Editar refeição"
             icon={
@@ -86,7 +89,7 @@ export function MealInfos() {
             }
           />
           <DefaultGrayButton
-            onPress={deleteAndMoveToHome}
+            onPress={() => setModalVisible(true)}
             disabled={false}
             text="Excluir refeição"
             negativeColors
@@ -99,6 +102,11 @@ export function MealInfos() {
           />
         </S.ButtonsBox>
       </S.InputsBox>
+      <DeletionModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        deleteAndMoveToHome={deleteAndMoveToHome}
+      />
     </S.Container>
   );
 }

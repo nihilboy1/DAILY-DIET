@@ -50,7 +50,7 @@ export const InsideTheDietLabelText = styled.Text`
 
 export const InsideDietLabel = styled.View`
   background-color: ${({ theme }) => theme.colors.gray_200}
-  width: 40% ;
+  width: 180px;
   flex-direction: row;
   justify-content: space-between;
   border-radius: 100px;
@@ -63,3 +63,4 @@ export const ButtonsBox = styled.View`
   justify-content: space-between;
   margin-bottom: 50px;
 `;
+

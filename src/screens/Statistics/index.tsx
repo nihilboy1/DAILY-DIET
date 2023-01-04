@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { MealsPercentage } from "../../components/MealsPercentage";
 import { StatisticBox } from "../../components/StatisticBox";
-import { getAllMeals } from "../../storage/CRUD/readMeals";
+import { readMeals } from "../../storage/CRUD/readMeals";
 import theme from "../../theme";
 import * as S from "./styles";
 
@@ -57,7 +57,7 @@ export function Statistics() {
 
   async function fetchAllMeals() {
     try {
-      const data = await getAllMeals();
+      const data = await readMeals();
       setMeals(data);
     } catch (error) {
       console.log(error);

@@ -2,6 +2,7 @@ import * as S from "./styles";
 
 interface InputProps {
   label: string;
+  value: string;
   h?: number;
   max?: number;
   w?: string;
@@ -14,6 +15,7 @@ export function Input({
   max = 40,
   w = "100%",
   setValue,
+  value,
 }: InputProps) {
   return (
     <S.InputContainer style={{ width: w }}>
@@ -24,6 +26,7 @@ export function Input({
         maxLength={max}
         multiline
         style={{ height: h }}
+        value={value}
         onChange={(e) => setValue(e.nativeEvent.text)}
       />
     </S.InputContainer>

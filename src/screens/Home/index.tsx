@@ -43,7 +43,6 @@ export function Home() {
       const data = await readMeals();
       setMeals(data);
       setGroupedMeals(groupMealsByDate(data));
-      console.log("fetchMeals chamado com sucesso!");
     } catch (error) {
       console.log(error);
     }

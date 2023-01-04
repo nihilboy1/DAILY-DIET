@@ -1,5 +1,5 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ArrowLeft, Circle } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -8,24 +8,32 @@ import uuid from "react-native-uuid";
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
-import { mealRegister } from "../../storage/CRUD/createMeal";
 import theme from "../../theme";
 import { mealProps } from "../Home";
 import * as S from "./styles";
+import { createMeal } from "../../storage/CRUD/createMeal";
+import { deleteMeal } from "../../storage/CRUD/deteleMeal";
 
-export function NewMeal() {
+interface RouteParams {
+  data: mealProps;
+}
+
+export function EditMeal() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { data } = route.params as RouteParams;
+
   const [date, setDate] = useState(new Date());
   const [hideDateModal, setHideDateModal] = useState(false);
   const [hideTimeModal, setHideTimeModal] = useState(false);
   const [meal, setMeal] = useState<mealProps>();
-  const [mealName, setMealName] = useState("");
-  const [mealDescription, setMealDescription] = useState("");
-  const [hourMinutes, setHourMinutes] = useState("");
-  const [dayMonthYear, setDayMonthYear] = useState("");
-  const [insideTheDietMeal, setInsideTheDietMeal] = useState<
-    boolean | undefined
-  >(undefined);
+  const [mealName, setMealName] = useState(data.mealName);
+  const [mealDescription, setMealDescription] = useState(data.description);
+  const [hourMinutes, setHourMinutes] = useState(data.hour);
+  const [dayMonthYear, setDayMonthYear] = useState(data.date);
+  const [insideTheDietMeal, setInsideTheDietMeal] = useState<boolean>(
+    data.insideTheDiet
+  );
 
   const handleSetDate = (timeStamp?: number) => {
     if (timeStamp) {
@@ -44,15 +52,20 @@ export function NewMeal() {
 
   const callRegisterMeal = async () => {
     try {
-      await mealRegister(meal as mealProps);
-      console.log("mealRegister foi chamado");
+      await createMeal(meal as mealProps);
+      await deleteMeal(data.id);
+      moveToHome();
     } catch (error) {
       console.log(error);
     }
   };
 
-  function MoveToHome() {
-    handleSetMeal();
+  function goBack() {
+    navigation.goBack();
+  }
+
+  function moveToHome() {
+    navigation.navigate("home");
   }
 
   const handleSetMeal = () => {
@@ -69,9 +82,7 @@ export function NewMeal() {
   };
 
   useEffect(() => {
-    console.log("Entrou no useEffect do NewMeal");
     if (meal) {
-      console.log("Entoru if do useEffect do NewMeal");
       callRegisterMeal();
     }
   }, [meal]);
@@ -80,7 +91,7 @@ export function NewMeal() {
     <S.Container>
       <S.Header>
         <TouchableOpacity
-          onPress={MoveToHome}
+          onPress={goBack}
           style={{
             position: "absolute",
             left: 28,
@@ -90,14 +101,15 @@ export function NewMeal() {
         >
           <ArrowLeft color={theme.colors.gray_500} weight="bold" />
         </TouchableOpacity>
-        <S.HeaderText>Nova Refeição</S.HeaderText>
+        <S.HeaderText>Editar Refeição</S.HeaderText>
       </S.Header>
       <S.InputsBox>
-        <Input label="Nome" setValue={setMealName} />
+        <Input value={mealName} label="Nome" setValue={setMealName} />
         <Input
           label="Descrição"
           h={120}
           max={170}
+          value={mealDescription}
           setValue={setMealDescription}
         />
         <S.DateTimeBox>
@@ -188,8 +200,8 @@ export function NewMeal() {
           </S.InsideDietButtonsBox>
         </S.InsideDietBox>
         <DefaultGrayButton
-          text="Cadastrar refeição"
-          moveTo={MoveToHome}
+          text="Salvar alterações"
+          onPress={handleSetMeal}
           disabled={
             mealName &&
             hourMinutes &&

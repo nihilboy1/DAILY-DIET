@@ -12,7 +12,11 @@ export function MealHistory({ groupedMeals }: MealHistoryProps) {
   return (
     <S.Container>
       <SectionList
-        ListEmptyComponent={<Text>Que tal cadastrar uma refeição?</Text>}
+        ListEmptyComponent={
+          <S.EmptyBox>
+            <S.EmptyBoxText>Que tal cadastrar uma refeição?</S.EmptyBoxText>
+          </S.EmptyBox>
+        }
         showsVerticalScrollIndicator={false}
         sections={groupedMeals}
         stickySectionHeadersEnabled={false}

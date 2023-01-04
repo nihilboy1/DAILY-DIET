@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 export const Container = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.gray_400};
+  flex: 1;
 `;
 
 export const Header = styled.View`

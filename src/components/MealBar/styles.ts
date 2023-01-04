@@ -13,6 +13,7 @@ export const Container = styled.TouchableOpacity`
 export const TextBox = styled.View`
   font-family: ${({ theme }) => theme.font_family.regular};
   font-size: ${({ theme }) => theme.font_size.md};
+  color: ${({ theme }) => theme.colors.gray_600};
   flex-direction: row;
   align-items: center;
   gap: 20px;

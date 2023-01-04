@@ -7,7 +7,7 @@ export function MealBar({ data }: any) {
   const navigation = useNavigation();
 
   function MoveToMealInfo() {
-    navigation.navigate("meal", { data });
+    navigation.navigate("mealInfos", { data });
   }
   return (
     <S.Container onPress={MoveToMealInfo}>

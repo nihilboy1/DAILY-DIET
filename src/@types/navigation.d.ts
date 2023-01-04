@@ -6,7 +6,9 @@ export declare global {
       statistics: undefined;
       home: undefined;
       newMeal: undefined;
-      meal: { data: mealProps };
+      finish: { insideTheDiet: boolean };
+      mealInfos: { data: mealProps };
+      editMeal: { data: mealProps };
     }
   }
 }

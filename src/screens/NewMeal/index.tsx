@@ -1,7 +1,7 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Circle } from "phosphor-react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import uuid from "react-native-uuid";
 
@@ -10,15 +10,13 @@ import { Input } from "../../components/Input";
 import { InputTitle, Picker } from "../../components/Input/styles";
 import { createMeal } from "../../storage/CRUD/createMeal";
 import theme from "../../theme";
-import { mealProps } from "../Home";
 import * as S from "./styles";
 
 export function NewMeal() {
   const navigation = useNavigation();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date>(new Date());
   const [hideDateModal, setHideDateModal] = useState(false);
   const [hideTimeModal, setHideTimeModal] = useState(false);
-  const [meal, setMeal] = useState<mealProps>();
   const [mealName, setMealName] = useState("");
   const [mealDescription, setMealDescription] = useState("");
   const [hourMinutes, setHourMinutes] = useState("");
@@ -42,16 +40,7 @@ export function NewMeal() {
     setHideTimeModal(false);
   };
 
-  const callRegisterMeal = async () => {
-    try {
-      await createMeal(meal as mealProps);
-      moveToHome();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSetMeal = () => {
+  const handleSetMeal = async () => {
     const mealObject = {
       id: String(uuid.v4()),
       mealName: mealName,
@@ -61,24 +50,29 @@ export function NewMeal() {
       insideTheDiet: insideTheDietMeal as boolean,
     };
 
-    setMeal(mealObject);
+    try {
+      await createMeal(mealObject);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.log(mealObject.insideTheDiet);
+      moveToFinishScreen(mealObject.insideTheDiet);
+    }
   };
 
   function moveToHome() {
     navigation.navigate("home");
   }
 
-  useEffect(() => {
-    if (meal) {
-      callRegisterMeal();
-    }
-  }, [meal]);
+  function moveToFinishScreen(insideTheDiet: boolean) {
+    navigation.navigate("finish", { insideTheDiet });
+  }
 
   return (
     <S.Container>
       <S.Header>
         <TouchableOpacity
-          onPress={moveToHome}
+          onPress={() => moveToHome()}
           style={{
             position: "absolute",
             left: 28,
@@ -91,8 +85,9 @@ export function NewMeal() {
         <S.HeaderText>Nova Refeição</S.HeaderText>
       </S.Header>
       <S.InputsBox>
-        <Input label="Nome" setValue={setMealName} />
+        <Input label="Nome" setValue={setMealName} value={mealName} />
         <Input
+          value={mealDescription}
           label="Descrição"
           h={120}
           max={170}

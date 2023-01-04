@@ -14,6 +14,7 @@ export const Container = styled.View`
 export const Percentage = styled.Text`
   font-family: ${({ theme }) => theme.font_family.bold}
   font-size: ${({ theme }) => theme.font_size.xxl};
+
 `;
 
 export const SpanText = styled.Text`
