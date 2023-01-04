@@ -1,31 +1,30 @@
 import * as S from "./styles";
 
-interface InputProps {
+interface Props {
   label: string;
   value: string;
-  h?: number;
-  max?: number;
-  w?: string;
+  height?: number;
+  maxLength?: number;
+  width?: string;
   setValue: (value: string) => void;
 }
 
 export function Input({
   label,
-  h = 50,
-  max = 40,
-  w = "100%",
+  height = 50,
+  maxLength = 40,
+  width = "100%",
   setValue,
   value,
-}: InputProps) {
+}: Props) {
   return (
-    <S.InputContainer style={{ width: w }}>
+    <S.InputContainer style={{ width }}>
       <S.InputTitle>{label}</S.InputTitle>
-
       <S.TextInput
         numberOfLines={4}
-        maxLength={max}
+        maxLength={maxLength}
         multiline
-        style={{ height: h }}
+        style={{ height }}
         value={value}
         onChange={(e) => setValue(e.nativeEvent.text)}
       />

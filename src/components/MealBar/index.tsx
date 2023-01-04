@@ -2,15 +2,21 @@ import { Circle } from "phosphor-react-native";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
 import * as S from "./styles";
+import { mealProps } from "../../screens/Home";
 
-export function MealBar({ data }: any) {
+interface Props {
+  data: mealProps;
+}
+
+export function MealBar({ data }: Props) {
   const navigation = useNavigation();
 
-  function MoveToMealInfo() {
+  function goToMealInfo() {
     navigation.navigate("mealInfos", { data });
   }
+
   return (
-    <S.Container onPress={MoveToMealInfo}>
+    <S.Container onPress={goToMealInfo}>
       <S.TextBox>
         <S.TimeStampBox>{data.hour}</S.TimeStampBox>
         <S.MealName>{data.mealName}</S.MealName>

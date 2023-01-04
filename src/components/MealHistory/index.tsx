@@ -1,4 +1,4 @@
-import { SectionList, Text } from "react-native";
+import { SectionList } from "react-native";
 
 import { sectionListDataProps } from "../../screens/Home";
 import { MealBar } from "../MealBar";

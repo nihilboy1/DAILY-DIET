@@ -4,13 +4,13 @@ import theme from "../../theme";
 import * as S from "./styles";
 
 interface MealsPercentageProps {
-  moveTo: () => void;
+  onPress: () => void;
   routeName: string;
   value: number;
 }
 
 export function MealsPercentage({
-  moveTo,
+  onPress,
   routeName,
   value,
 }: MealsPercentageProps) {
@@ -21,7 +21,7 @@ export function MealsPercentage({
           value >= 50 ? theme.colors.green_light : theme.colors.red_light,
       }}
     >
-      <S.ArrowButton onPress={moveTo} routeName={routeName}>
+      <S.ArrowButton onPress={onPress} routeName={routeName}>
         {routeName === "home" ? (
           <ArrowUpRight
             color={

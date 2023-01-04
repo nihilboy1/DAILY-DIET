@@ -1,11 +1,11 @@
 import * as S from "./styles";
 import { TextButton } from "./styles";
 
-interface DefaultGrayButtonProps {
+interface Props {
   text: string;
   onPress: () => void;
   disabled: boolean;
-  icon?: JSX.Element;
+  icon?: React.ReactElement;
   negativeColors?: boolean;
 }
 
@@ -15,16 +15,17 @@ export function DefaultGrayButton({
   disabled,
   icon,
   negativeColors = false,
-}: DefaultGrayButtonProps) {
+}: Props) {
   return (
     <S.Container
-      negativeColors={negativeColors}
       disabled={disabled}
+      negativeColors={negativeColors}
       onPress={onPress}
-      style={{ opacity: disabled ? 0.5 : 1 }}
     >
       {icon && icon}
-      <TextButton negativeColors={negativeColors}>{text}</TextButton>
+      <TextButton disabled={disabled} negativeColors={negativeColors}>
+        {text}
+      </TextButton>
     </S.Container>
   );
 }

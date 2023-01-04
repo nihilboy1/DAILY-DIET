@@ -68,7 +68,7 @@ export function EditMeal() {
     navigation.navigate("home");
   }
 
-  const handleSetMeal = () => {
+  const updateMeal = () => {
     const mealObject = {
       id: String(uuid.v4()),
       mealName: mealName,
@@ -107,8 +107,8 @@ export function EditMeal() {
         <Input value={mealName} label="Nome" setValue={setMealName} />
         <Input
           label="Descrição"
-          h={120}
-          max={170}
+          height={120}
+          maxLength={170}
           value={mealDescription}
           setValue={setMealDescription}
         />
@@ -201,7 +201,7 @@ export function EditMeal() {
         </S.InsideDietBox>
         <DefaultGrayButton
           text="Salvar alterações"
-          onPress={handleSetMeal}
+          onPress={updateMeal}
           disabled={
             mealName &&
             hourMinutes &&

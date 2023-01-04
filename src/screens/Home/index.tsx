@@ -130,7 +130,7 @@ export function Home() {
     <S.Container>
       <ProfileBox />
       <MealsPercentage
-        moveTo={MoveToStatistics}
+        onPress={MoveToStatistics}
         value={(totalInsideOfDietMeals / totalMeals) * 100}
         routeName={route.name}
       />

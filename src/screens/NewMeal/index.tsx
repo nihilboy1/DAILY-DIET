@@ -89,8 +89,8 @@ export function NewMeal() {
         <Input
           value={mealDescription}
           label="Descrição"
-          h={120}
-          max={170}
+          height={120}
+          maxLength={170}
           setValue={setMealDescription}
         />
         <S.DateTimeBox>
