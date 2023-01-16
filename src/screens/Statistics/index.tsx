@@ -89,38 +89,40 @@ export function Statistics() {
           percentage >= 50 ? theme.colors.green_light : theme.colors.red_light,
       }}
     >
-      <MealsPercentage
-        moveTo={MoveToHome}
-        routeName={route.name}
-        value={(totalInsideOfDietMeals / totalMeals) * 100}
-      />
-      <S.StatusBox>
-        <S.Title>Estatísticas Gerais</S.Title>
-        <StatisticBox
-          value={bestInsideOfTheDietMealsStreak}
-          w={"100%"}
-          desc="Melhor sequência de pratos dentro da dieta"
+      <S.ScrollViewContainer>
+        <MealsPercentage
+          onPress={MoveToHome}
+          routeName={route.name}
+          value={(totalInsideOfDietMeals / totalMeals) * 100}
         />
-        <StatisticBox
-          w={"100%"}
-          desc="Refeições registradas"
-          value={totalMeals}
-        />
-        <S.InOrOutBox>
+        <S.StatusBox>
+          <S.Title>Estatísticas Gerais</S.Title>
           <StatisticBox
-            bgc={theme.colors.green_light}
-            w={"48%"}
-            desc="Refeições dentro da dieta"
-            value={totalMeals - totalOutOfDietMeals}
+            value={bestInsideOfTheDietMealsStreak}
+            w={"100%"}
+            desc="Melhor sequência de pratos dentro da dieta"
           />
           <StatisticBox
-            bgc={theme.colors.red_light}
-            w={"48%"}
-            desc="Refeições fora da dieta"
-            value={totalOutOfDietMeals}
+            w={"100%"}
+            desc="Refeições registradas"
+            value={totalMeals}
           />
-        </S.InOrOutBox>
-      </S.StatusBox>
+          <S.InOrOutBox>
+            <StatisticBox
+              bgc={theme.colors.green_light}
+              w={"48%"}
+              desc="Refeições dentro da dieta"
+              value={totalMeals - totalOutOfDietMeals}
+            />
+            <StatisticBox
+              bgc={theme.colors.red_light}
+              w={"48%"}
+              desc="Refeições fora da dieta"
+              value={totalOutOfDietMeals}
+            />
+          </S.InOrOutBox>
+        </S.StatusBox>
+      </S.ScrollViewContainer>
     </S.Container>
   );
 }

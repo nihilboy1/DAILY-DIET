@@ -50,7 +50,7 @@ export const InsideDietButton = styled.TouchableOpacity`
   align-items: center;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 120px;
+  margin-bottom: 100px;
 `;
 
 export const ButtonText = styled.Text`
