@@ -22,7 +22,7 @@ export const HeaderText = styled.Text`
 `;
 
 export const InputsBox = styled.View`
-  height: 90%
+  height: 85%
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 30px;
   padding: 32px;
@@ -63,4 +63,3 @@ export const ButtonsBox = styled.View`
   justify-content: space-between;
   margin-bottom: 50px;
 `;
-

@@ -1,21 +1,19 @@
 import * as S from "./styles";
+import { TextInputProps } from "react-native";
 
-interface Props {
+type Props = TextInputProps & {
   label: string;
-  value: string;
   height?: number;
   maxLength?: number;
   width?: string;
-  setValue: (value: string) => void;
-}
+};
 
 export function Input({
   label,
   height = 50,
   maxLength = 40,
   width = "100%",
-  setValue,
-  value,
+  ...rest
 }: Props) {
   return (
     <S.InputContainer style={{ width }}>
@@ -25,8 +23,7 @@ export function Input({
         maxLength={maxLength}
         multiline
         style={{ height }}
-        value={value}
-        onChange={(e) => setValue(e.nativeEvent.text)}
+        {...rest}
       />
     </S.InputContainer>
   );

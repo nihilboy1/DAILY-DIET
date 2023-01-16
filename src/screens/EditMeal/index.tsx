@@ -2,7 +2,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ArrowLeft, Circle } from "phosphor-react-native";
 import { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import uuid from "react-native-uuid";
 
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
@@ -89,135 +89,129 @@ export function EditMeal() {
 
   return (
     <S.Container>
-      <ScrollView>
-        <S.Header>
+      <S.Header>
+        <TouchableOpacity
+          onPress={goBack}
+          style={{
+            position: "absolute",
+            left: 28,
+            top: 20,
+            padding: 10,
+          }}
+        >
+          <ArrowLeft color={theme.colors.gray_500} weight="bold" />
+        </TouchableOpacity>
+        <S.HeaderText>Editar Refeição</S.HeaderText>
+      </S.Header>
+      <S.InputsBox>
+        <Input value={mealName} label="Nome" setValue={setMealName} />
+        <Input
+          label="Descrição"
+          height={120}
+          maxLength={170}
+          value={mealDescription}
+          setValue={setMealDescription}
+        />
+        <S.DateTimeBox>
           <TouchableOpacity
-            onPress={goBack}
-            style={{
-              position: "absolute",
-              left: 28,
-              top: 20,
-              padding: 10,
-            }}
+            style={{ width: "48%" }}
+            onPress={() => setHideDateModal(true)}
           >
-            <ArrowLeft color={theme.colors.gray_500} weight="bold" />
+            <InputTitle>Data</InputTitle>
+            <Picker>
+              <S.DateTimeText>{dayMonthYear}</S.DateTimeText>
+            </Picker>
           </TouchableOpacity>
-          <S.HeaderText>Editar Refeição</S.HeaderText>
-        </S.Header>
-        <S.InputsBox>
-          <Input value={mealName} label="Nome" setValue={setMealName} />
-          <Input
-            label="Descrição"
-            height={120}
-            maxLength={170}
-            value={mealDescription}
-            setValue={setMealDescription}
-          />
-          <S.DateTimeBox>
-            <TouchableOpacity
-              style={{ width: "48%" }}
-              onPress={() => setHideDateModal(true)}
-            >
-              <InputTitle>Data</InputTitle>
-              <Picker>
-                <S.DateTimeText>{dayMonthYear}</S.DateTimeText>
-              </Picker>
-            </TouchableOpacity>
-            {hideDateModal && (
-              <RNDateTimePicker
-                style={{ backgroundColor: "red" }}
-                value={date}
-                mode="date"
-                onChange={(event) => handleSetDate(event.nativeEvent.timestamp)}
-              />
-            )}
-            <TouchableOpacity
-              style={{ width: "48%" }}
-              onPress={() => setHideTimeModal(true)}
-            >
-              <InputTitle>Hora</InputTitle>
-              <Picker>
-                <S.DateTimeText>{hourMinutes}</S.DateTimeText>
-              </Picker>
-            </TouchableOpacity>
-            {hideTimeModal && (
-              <RNDateTimePicker
-                is24Hour={true}
-                value={date}
-                mode="time"
-                onChange={(event) => handleSetDate(event.nativeEvent.timestamp)}
-              />
-            )}
-          </S.DateTimeBox>
-          <S.InsideDietBox>
-            <S.TitleButtonsText>Está dentro da dieta?</S.TitleButtonsText>
-            <S.InsideDietButtonsBox>
-              <S.InsideDietButton
-                style={{
-                  width: "49%",
-                  backgroundColor:
-                    insideTheDietMeal === undefined
-                      ? theme.colors.gray_100
-                      : insideTheDietMeal === false
-                      ? theme.colors.gray_100
-                      : theme.colors.green_light,
+          {hideDateModal && (
+            <RNDateTimePicker
+              style={{ backgroundColor: "red" }}
+              value={date}
+              mode="date"
+              onChange={(event) => handleSetDate(event.nativeEvent.timestamp)}
+            />
+          )}
+          <TouchableOpacity
+            style={{ width: "48%" }}
+            onPress={() => setHideTimeModal(true)}
+          >
+            <InputTitle>Hora</InputTitle>
+            <Picker>
+              <S.DateTimeText>{hourMinutes}</S.DateTimeText>
+            </Picker>
+          </TouchableOpacity>
+          {hideTimeModal && (
+            <RNDateTimePicker
+              is24Hour={true}
+              value={date}
+              mode="time"
+              onChange={(event) => handleSetDate(event.nativeEvent.timestamp)}
+            />
+          )}
+        </S.DateTimeBox>
+        <S.InsideDietBox>
+          <S.TitleButtonsText>Está dentro da dieta?</S.TitleButtonsText>
+          <S.InsideDietButtonsBox>
+            <S.InsideDietButton
+              style={{
+                width: "49%",
+                backgroundColor:
+                  insideTheDietMeal === undefined
+                    ? theme.colors.gray_100
+                    : insideTheDietMeal === false
+                    ? theme.colors.gray_100
+                    : theme.colors.green_light,
 
-                  borderWidth: 1,
-                  borderColor:
-                    insideTheDietMeal === undefined
-                      ? theme.colors.gray_100
-                      : insideTheDietMeal === false
-                      ? theme.colors.gray_100
-                      : theme.colors.green_dark,
-                }}
-                onPress={() => setInsideTheDietMeal(true)}
-              >
-                <Circle
-                  weight="fill"
-                  size={12}
-                  color={theme.colors.green_dark}
-                />
-                <S.ButtonText>Sim</S.ButtonText>
-              </S.InsideDietButton>
-              <S.InsideDietButton
-                style={{
-                  width: "49%",
-                  backgroundColor:
-                    insideTheDietMeal === undefined
-                      ? theme.colors.gray_100
-                      : insideTheDietMeal === false
-                      ? theme.colors.red_light
-                      : theme.colors.gray_100,
+                borderWidth: 1,
+                borderColor:
+                  insideTheDietMeal === undefined
+                    ? theme.colors.gray_100
+                    : insideTheDietMeal === false
+                    ? theme.colors.gray_100
+                    : theme.colors.green_dark,
+              }}
+              onPress={() => setInsideTheDietMeal(true)}
+            >
+              <Circle weight="fill" size={12} color={theme.colors.green_dark} />
+              <S.ButtonText>Sim</S.ButtonText>
+            </S.InsideDietButton>
+            <S.InsideDietButton
+              style={{
+                width: "49%",
+                backgroundColor:
+                  insideTheDietMeal === undefined
+                    ? theme.colors.gray_100
+                    : insideTheDietMeal === false
+                    ? theme.colors.red_light
+                    : theme.colors.gray_100,
 
-                  borderWidth: 1,
-                  borderColor:
-                    insideTheDietMeal === undefined
-                      ? theme.colors.gray_100
-                      : insideTheDietMeal === false
-                      ? theme.colors.red_dark
-                      : theme.colors.gray_100,
-                }}
-                onPress={() => setInsideTheDietMeal(false)}
-              >
-                <Circle weight="fill" size={12} color={theme.colors.red_dark} />
-                <S.ButtonText>Não</S.ButtonText>
-              </S.InsideDietButton>
-            </S.InsideDietButtonsBox>
-          </S.InsideDietBox>
-          <DefaultGrayButton
-            text="Salvar alterações"
-            onPress={updateMeal}
-            disabled={
-              mealName &&
-              hourMinutes &&
-              dayMonthYear &&
-              insideTheDietMeal != undefined
-                ? false
-                : true
-            }
-          />
-        </S.InputsBox>
-      </ScrollView>
+                borderWidth: 1,
+                borderColor:
+                  insideTheDietMeal === undefined
+                    ? theme.colors.gray_100
+                    : insideTheDietMeal === false
+                    ? theme.colors.red_dark
+                    : theme.colors.gray_100,
+              }}
+              onPress={() => setInsideTheDietMeal(false)}
+            >
+              <Circle weight="fill" size={12} color={theme.colors.red_dark} />
+              <S.ButtonText>Não</S.ButtonText>
+            </S.InsideDietButton>
+          </S.InsideDietButtonsBox>
+        </S.InsideDietBox>
+        <DefaultGrayButton
+          text="Salvar alterações"
+          onPress={updateMeal}
+          disabled={
+            mealName &&
+            hourMinutes &&
+            dayMonthYear &&
+            insideTheDietMeal != undefined
+              ? false
+              : true
+          }
+        />
+      </S.InputsBox>
     </S.Container>
   );
 }

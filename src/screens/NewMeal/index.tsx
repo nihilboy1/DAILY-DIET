@@ -4,6 +4,7 @@ import { ArrowLeft, Circle } from "phosphor-react-native";
 import { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 import uuid from "react-native-uuid";
+import { useForm } from "react-hook-form";
 
 import { DefaultGrayButton } from "../../components/DefaultGrayButton";
 import { Input } from "../../components/Input";
@@ -14,6 +15,7 @@ import * as S from "./styles";
 
 export function NewMeal() {
   const navigation = useNavigation();
+  const { control } = useForm();
   const [date, setDate] = useState<Date>(new Date());
   const [hideDateModal, setHideDateModal] = useState(false);
   const [hideTimeModal, setHideTimeModal] = useState(false);
@@ -86,14 +88,16 @@ export function NewMeal() {
           <S.HeaderText>Nova Refeição</S.HeaderText>
         </S.Header>
         <S.InputsBox>
-          <Input label="Nome" setValue={setMealName} value={mealName} />
+          <Input label="Nome" onChangeText={setMealName} value={mealName} />
+
           <Input
+            onChangeText={setMealDescription}
             value={mealDescription}
             label="Descrição"
             height={120}
             maxLength={170}
-            setValue={setMealDescription}
           />
+
           <S.DateTimeBox>
             <TouchableOpacity
               style={{ width: "48%" }}

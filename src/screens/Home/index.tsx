@@ -13,7 +13,6 @@ import { ProfileBox } from "../../components/ProfileBox";
 import { readMeals } from "../../storage/CRUD/readMeals";
 import theme from "../../theme";
 import * as S from "./styles";
-import { ScrollView } from "react-native";
 
 export interface mealProps {
   id: string;
@@ -129,28 +128,28 @@ export function Home() {
 
   return (
     <S.Container>
-        <ProfileBox />
-        <MealsPercentage
-          onPress={MoveToStatistics}
-          value={(totalInsideOfDietMeals / totalMeals) * 100}
-          routeName={route.name}
+      <ProfileBox />
+      <MealsPercentage
+        onPress={MoveToStatistics}
+        value={(totalInsideOfDietMeals / totalMeals) * 100}
+        routeName={route.name}
+      />
+      <S.ButtonContainer>
+        <S.LabelText>Refeições</S.LabelText>
+        <DefaultGrayButton
+          disabled={false}
+          text="Nova Refeição"
+          onPress={MoveToNewMeal}
+          icon={
+            <Plus
+              color={theme.colors.white}
+              size={28}
+              style={{ marginRight: 10 }}
+            />
+          }
         />
-        <S.ButtonContainer>
-          <S.LabelText>Refeições</S.LabelText>
-          <DefaultGrayButton
-            disabled={false}
-            text="Nova Refeição"
-            onPress={MoveToNewMeal}
-            icon={
-              <Plus
-                color={theme.colors.white}
-                size={28}
-                style={{ marginRight: 10 }}
-              />
-            }
-          />
-        </S.ButtonContainer>
-        <MealHistory groupedMeals={groupedMeals}></MealHistory>
+      </S.ButtonContainer>
+      <MealHistory groupedMeals={groupedMeals}></MealHistory>
     </S.Container>
   );
 }
