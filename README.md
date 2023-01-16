@@ -1,10 +1,10 @@
 <h1>🚀 | DAILY DIET</h1>
 <h3>
-  Projeto criado como desafio do curso de React-native da Rocketseat
+  Projeto criado como desafio do curso de React-native da Rocketseat.
 </h3>
 
 <h1>🔎 | Vizualização do projeto</h1>
-<img src="https://i.imgur.com/I3Acfcs.png" alt="Foto da aplicação" />
+<img src="https://i.imgur.com/mpPig1o.png" alt="Foto da aplicação" />
 
 <h1>👾 | Execute na sua máquina</h1>
 <ul>
@@ -12,10 +12,10 @@
     1 - Realize o download do repositório
     </li>
     <li>
-    2 - Abra o terminal na pasta raiz e execute `npm install` seguido de `npm run start`
+    2 - Abra o terminal na pasta raiz e execute <code>npm install</code> seguido de <code>npm run start</code>
     </li>
   <li>
-    3 - Abra seu app `EXPO` e leia o `QRCODE` que vai aparecer
+    3 - Abra seu app <code>EXPO</code> e leia o <code>QRCODE</code> que vai aparecer
   </li>
 </ul>
 
@@ -30,7 +30,7 @@
   <li>Styled-components</li>
   <li>React-native</li>
   <li>Next.js</li>
-  <li>Phosphor-react-native<li>
+  <li>Phosphor-React-Native<li>
 </ul>
 
 <h1>👥 | Autor(es)</h1>
