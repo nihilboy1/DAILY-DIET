@@ -104,13 +104,13 @@ export function EditMeal() {
         <S.HeaderText>Editar Refeição</S.HeaderText>
       </S.Header>
       <S.InputsBox>
-        <Input value={mealName} label="Nome" setValue={setMealName} />
+        <Input value={mealName} label="Nome" onChangeText={setMealName} />
         <Input
           label="Descrição"
           height={120}
           maxLength={170}
           value={mealDescription}
-          setValue={setMealDescription}
+          onChangeText={setMealDescription}
         />
         <S.DateTimeBox>
           <TouchableOpacity
